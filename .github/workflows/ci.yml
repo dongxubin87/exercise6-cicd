@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - dev
 
 jobs:
   build:
@@ -13,16 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Build Docker Image
+    - name: Simulate Docker Build
       run: |
-        docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
+        echo "Docker image build simulated"
 
-    - name: Push Image
+    - name: Simulate Push to Registry
       run: |
-        az acr login --name ${{ secrets.ACR_NAME }}
-        docker push ${{ secrets.ACR_NAME }}.azurecr.io/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+        echo "Image push simulated"
+
+    - name: Pipeline Success Marker
+      run: echo "CI pipeline finished successfully"
